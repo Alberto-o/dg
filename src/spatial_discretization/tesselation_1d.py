@@ -1,6 +1,4 @@
-# from spatial_discretization.utils.utils_1d import *
-
-import spatial_discretization.utils.1d as u1d
+from .utils import utils_1d as u1d
 
 class Tesselation1D:
 
@@ -31,14 +29,17 @@ class Tesselation1D:
 
         #build coordinates of all nodes
         box = opts["grid"]["box"]
-        k_elem = (box[1]-box[0])/opts["grid"]["steps"]
-        [_,vx,_,etov] = u1d.mesh_generator(box[0],box[1],steps)
+        self.k_elem = int((box[1]-box[0])/opts["grid"]["steps"])
+        [_,vx,_,etov] = u1d.mesh_generator(box[0],box[1],self.k_elem)
         self.vx = vx
         self.etov = etov
         self.nodes_coord = u1d.nodes_coordinates(self.n_order,self.etov,self.vx)
 
+        #compuete normals at element faces
+        self.normals = u1d.normals(self.k_elem)
+
         #calculate geometric factors
-        [rx,jacobian] = u1d.geometric_factors(self.n_order,self.diff_matrix)
+        [self.rx,self.jacobian] = u1d.geometric_factors(self.nodes_coord,self.diff_matrix)
         [self.etoe, self.etof] = u1d.connect(self.etov)
         [self.vmap_m, self.vmap_p, self.vmap_b, self.map_b] =  u1d.build_maps( \
                                                                 self.n_order, \
@@ -54,6 +55,7 @@ class Tesselation1D:
             field returns a one dimensional numpy array containing the 
             fields of type field_type
         """
+        
         print("TBD") #TODO
     
     def curl(self, field_type):
@@ -69,3 +71,10 @@ class Tesselation1D:
             numerical flux of fields of type field_type
         """
         print("TBD") #TODO
+
+    def get_smallest_distance(self):
+        """
+            get_smallest_distance returns ... #TODO
+        """
+        print("TBD") #TODO
+        
