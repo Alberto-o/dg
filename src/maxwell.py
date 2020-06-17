@@ -9,6 +9,7 @@ class MaxwellEquations(SpatialDiscretization, Equation):
 
 
     def rhs(self, t=None):
+        #shouldn't this be rhs?
         res = []
         for tess in self.tesselations:
             res.append( - tess.curl("H") + tess.flux("E") )
@@ -74,6 +75,14 @@ class Maxwell:
 
 
     def _init_probe(self, probe_request):
+        """probe example:
+            "name": "E_all",
+            "fields": [
+                "E"
+            ],
+            "element_id": 0
+        """
+
         print("TBD") #TODO
 
 

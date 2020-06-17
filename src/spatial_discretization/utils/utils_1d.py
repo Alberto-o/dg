@@ -528,7 +528,7 @@ def build_maps(n_order,nodes_coord,etoe,etof):
     fmask_1 = np.where(np.abs(jgl+1)<1e-10)[0][0]
     fmask_2 = np.where(np.abs(jgl-1)<1e-10)[0][0]
     fmask = [fmask_1,fmask_2]
-
+    
     node_ids = np.reshape(np.arange(k_elem*n_p),[n_p,k_elem],'F')
     vmap_m = np.full([k_elem,n_fp,n_faces],0)
     vmap_p = np.full([k_elem,n_fp,n_faces],0)

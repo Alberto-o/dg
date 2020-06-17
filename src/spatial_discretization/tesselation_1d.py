@@ -1,3 +1,4 @@
+import numpy as np
 from .utils import utils_1d as u1d
 
 class Tesselation1D:
@@ -35,9 +36,9 @@ class Tesselation1D:
         self.etov = etov
         self.nodes_coord = u1d.nodes_coordinates(self.n_order,self.etov,self.vx)
 
-        #compuete normals at element faces
+        #compute normals at element faces
         self.normals = u1d.normals(self.k_elem)
-
+        
         #calculate geometric factors
         [self.rx,self.jacobian] = u1d.geometric_factors(self.nodes_coord,self.diff_matrix)
         [self.etoe, self.etof] = u1d.connect(self.etov)
@@ -46,6 +47,13 @@ class Tesselation1D:
                                                                 self.nodes_coord, \
                                                                 self.etoe, \
                                                                 self.etof)
+
+        fmask_1 = np.where(np.abs(self.jgl+1)<1e-10)[0][0]
+        fmask_2 = np.where(np.abs(self.jgl-1)<1e-10)[0][0]
+        fmask = [fmask_1,fmask_2]
+#        fx = self.nodes_coord[fmask]
+        self.f_scale = 1/(self.jacobian[fmask])
+
 
         print("TBD") #TODO
 
@@ -63,6 +71,7 @@ class Tesselation1D:
             curl returns a one dimensional numpy array containing the 
             discrete curl of fields of type field_type
         """
+        #curl = self.rx*np.matmul(self.diff_matrix,field)
         print("TBD") #TODO
 
     def flux(self, field_type):
@@ -74,7 +83,7 @@ class Tesselation1D:
 
     def get_smallest_distance(self):
         """
-            get_smallest_distance returns ... #TODO
+            get_smallest_distance returns ... 
         """
         print("TBD") #TODO
         
