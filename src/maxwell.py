@@ -9,7 +9,6 @@ class MaxwellEquations(SpatialDiscretization, Equation):
 
 
     def rhs(self, t=None):
-        #shouldn't this be rhs?
         res = []
         for tess in self.tesselations:
             res.append( - tess.curl("H") + tess.flux("E") )

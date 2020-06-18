@@ -58,14 +58,15 @@ class Tesselation1D:
         self.vars = {}
         for field in opts["fields"]:
             if field not in self.vars.keys:
-                self.vars[field] = np.zeros((self.n_order+1),self.k_elem)
+                self.vars[field] = np.zeros([self.n_order+1),self.k_elem])
 
     def field(self, field_type):
         """
             field returns a one dimensional numpy array containing the 
             fields of type field_type
         """
-        field = self.vars[field_type] 
+        field = self.vars[field_type]
+        field = np.reshape(field,((self.n_order+1)*self.k_elem),'F') #reshape here, or changes in utils_1d.py
         return 
     
     def curl(self, field_type):
@@ -75,6 +76,7 @@ class Tesselation1D:
         """
         field = self.vars[field_type]
         curl  = self.rx*np.matmul(self.diff_matrix,field)
+        curl = np.reshape(curl,((self.n_order+1)*self.k_elem),'F')
         return curl
 
     def flux(self, field_type):
@@ -82,7 +84,7 @@ class Tesselation1D:
             flux returns a one dimensional numpy array containing the 
             numerical flux of fields of type field_type
         """
-        print("TBD") #TODO
+        field = self.vars[field_type]
 
     def get_smallest_distance(self):
         """
