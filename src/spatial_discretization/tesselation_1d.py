@@ -54,25 +54,28 @@ class Tesselation1D:
 #        fx = self.nodes_coord[fmask]
         self.f_scale = 1/(self.jacobian[fmask])
 
-
-        print("TBD") #TODO
-
+        #initialize fields
+        self.vars = {}
+        for field in opts["fields"]:
+            if field not in self.vars.keys:
+                self.vars[field] = np.zeros((self.n_order+1),self.k_elem)
 
     def field(self, field_type):
         """
             field returns a one dimensional numpy array containing the 
             fields of type field_type
         """
-        
-        print("TBD") #TODO
+        field = self.vars[field_type] 
+        return 
     
     def curl(self, field_type):
         """
             curl returns a one dimensional numpy array containing the 
             discrete curl of fields of type field_type
         """
-        #curl = self.rx*np.matmul(self.diff_matrix,field)
-        print("TBD") #TODO
+        field = self.vars[field_type]
+        curl  = self.rx*np.matmul(self.diff_matrix,field)
+        return curl
 
     def flux(self, field_type):
         """
