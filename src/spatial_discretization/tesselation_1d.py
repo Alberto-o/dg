@@ -84,7 +84,13 @@ class Tesselation1D:
             flux returns a one dimensional numpy array containing the 
             numerical flux of fields of type field_type
         """
-        field = self.vars[field_type]
+        field_flux = self.vars[field_type]
+        field_aix  = []
+        for field in self.vars.keys():
+            if not field == field_type:
+                field_aux.append(self.vars[field])
+        
+        print("TBD")
 
     def get_smallest_distance(self):
         """

@@ -11,8 +11,8 @@ class MaxwellEquations(SpatialDiscretization, Equation):
     def rhs(self, t=None):
         res = []
         for tess in self.tesselations:
-            res.append( - tess.curl("H") + tess.flux("E") )
-            res.append( - tess.curl("E") + tess.flux("H") )
+            res.append( - tess.curl("E") + tess.flux("E") )
+            res.append( - tess.curl("H") + tess.flux("H") )
 
 
 class Maxwell:
