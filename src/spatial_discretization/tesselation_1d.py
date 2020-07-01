@@ -18,6 +18,8 @@ class Tesselation1D:
             raise ValueError("Tesselation parameters are not supported")
 
         self.n_order = opts["basis"]["order"]
+        self.n_faces = 2
+        self.n_fp = 1
         #compute basic Legendre Gauss Lobato grid
         self.jgl = u1d.jacobi_gauss_lobatto(0,0,self.n_order)
 
@@ -84,12 +86,18 @@ class Tesselation1D:
             flux returns a one dimensional numpy array containing the 
             numerical flux of fields of type field_type
         """
-        field_flux = self.vars[field_type]
-        field_aix  = []
+        field = self.vars[field_type]
+        field_aux  = []
         for field in self.vars.keys():
-            if not field == field_type:
+            if field != field_type:
                 field_aux.append(self.vars[field])
         
+        flux = np.zeros(self.n_fp*self.n_faces,self.k_elem)
+        flux_aux = np.zeros(self.n_fp*self.n_faces,self.k_elem)
+
+        flux[self.vmap_m]-flux[self.vmap_p]
+
+
         print("TBD")
 
     def get_smallest_distance(self):
